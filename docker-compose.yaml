@@ -1,0 +1,21 @@
+#
+# Standalone ZeroMQProxy docker-compose example
+#
+# This file is most useful as an example on how to include the proxy
+# in a larger system
+#
+# For example, exporting the `ports` isn't necessary if other services
+# share the `zmqproxy` network
+#
+version: "3"
+services:
+  proxy:
+    image: harbor.tangramflex.tech/tools/zmqproxy:latest
+    entrypoint: zmq_proxy tcp://*:6668 tcp://*:6667
+    ports:
+      - 6668:6668
+      - 6667:6667
+    networks:
+      - zmqproxy
+networks:
+  zmqproxy:
